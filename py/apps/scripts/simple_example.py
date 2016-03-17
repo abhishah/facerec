@@ -8,7 +8,7 @@ import sys, os
 sys.path.append("../..")
 # import facerec modules
 from facerec.feature import Fisherfaces, SpatialHistogram, Identity
-from facerec.distance import EuclideanDistance, ChiSquareDistance
+from facerec.distance import EuclideanDistance, ChiSquareDistance, BinRatioDistance
 from facerec.classifier import NearestNeighbor
 from facerec.model import PredictableModel
 from facerec.validation import KFoldCrossValidation
@@ -85,9 +85,9 @@ if __name__ == "__main__":
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
     # Define the Fisherfaces as Feature Extraction method:
-    feature = Fisherfaces()
+    feature = SpatialHistogram()
     # Define a 1-NN classifier with Euclidean Distance:
-    classifier = NearestNeighbor(dist_metric=EuclideanDistance(), k=1)
+    classifier = NearestNeighbor(dist_metric=EuclideanDistance(), k=7)
     # Define the model as the combination
     my_model = PredictableModel(feature=feature, classifier=classifier)
     # Compute the Fisherfaces on the given data (in X) and labels (in y):
@@ -98,11 +98,11 @@ if __name__ == "__main__":
     # Then turn the first (at most) 16 eigenvectors into grayscale
     # images (note: eigenvectors are stored by column!)
     E = []
-    for i in xrange(min(model.feature.eigenvectors.shape[1], 16)):
-        e = model.feature.eigenvectors[:,i].reshape(X[0].shape)
-        E.append(minmax_normalize(e,0,255, dtype=np.uint8))
+    #for i in xrange(min(model.feature.eigenvectors.shape[1], 16)):
+     #   e = model.feature.eigenvectors[:,i].reshape(X[0].shape)
+      #  E.append(minmax_normalize(e,0,255, dtype=np.uint8))
     # Plot them and store the plot to "python_fisherfaces_fisherfaces.pdf"
-    subplot(title="Fisherfaces", images=E, rows=4, cols=4, sptitle="Fisherface", colormap=cm.jet, filename="fisherfaces.png")
+    #subplot(title="Fisherfaces", images=E, rows=4, cols=4, sptitle="Fisherface", colormap=cm.jet, filename="fisherfaces.png")
     # Perform a 10-fold cross validation
     cv = KFoldCrossValidation(model, k=10)
     cv.validate(X, y)

@@ -73,19 +73,19 @@ class YaleBaseFilter(FileNameFilter):
         filetype = filename[-4:]
         if filetype != ".pgm":
             return False
-
+        print filename
         # There are "Ambient" PGM files, ignore them:
         if "Ambient" in filename:
             return False
         
-        azimuth = abs(int(filename[12:16]))
-        elevation = abs(int(filename[17:20]))
+        #azimuth = abs(int(filename[12:16]))
+        #elevation = abs(int(filename[17:20]))
 
         # Now filter based on angles:
-        if azimuth < self._min_azimuth or azimuth > self._max_azimuth:
-            return False
-        if elevation < self._min_elevation or elevation > self._max_elevation:
-            return False
+        #if azimuth < self._min_azimuth or azimuth > self._max_azimuth:
+          #  return False
+        #if elevation < self._min_elevation or elevation > self._max_elevation:
+         #   return False
             
         return True
 
