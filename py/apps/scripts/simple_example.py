@@ -85,7 +85,7 @@ if __name__ == "__main__":
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
     # Define the Fisherfaces as Feature Extraction method:
-    feature = SpatialHistogram()
+    feature = Fisherfaces()
     # Define a 1-NN classifier with Euclidean Distance:
     classifier = NearestNeighbor(dist_metric=EuclideanDistance(), k=7)
     # Define the model as the combination

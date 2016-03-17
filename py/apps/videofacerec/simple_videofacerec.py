@@ -86,6 +86,10 @@ def read_images(path, image_size=None):
             for filename in os.listdir(subject_path):
                 try:
                     im = cv2.imread(os.path.join(subject_path, filename), cv2.IMREAD_GRAYSCALE)
+                    #print(image_size)
+                    if (im is None): 
+                        print(-1)
+                   
                     # resize to given size (if given)
                     if (image_size is not None):
                         im = cv2.resize(im, image_size)
@@ -174,6 +178,8 @@ if __name__ == '__main__':
     # was given:
     try:
         image_size = (int(options.size.split("x")[0]), int(options.size.split("x")[1]))
+        #image_size= (112,92)
+        #print(image_size)
     except:
         print "[Error] Unable to parse the given image size '%s'. Please pass it in the format [width]x[height]!" % options.size
         sys.exit()
